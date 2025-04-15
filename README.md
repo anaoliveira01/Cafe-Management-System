@@ -48,6 +48,7 @@ How to run:
    
 6. Install npm in the client directory and start the application
    ```
+   npm install
    npm start
    ```
 
