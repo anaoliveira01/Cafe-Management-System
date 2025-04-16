@@ -2,13 +2,30 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
+// Validation functions
+const validateName = (name) => /^[A-Za-z\s]+$/.test(name);
+const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const validateQuantity = (qty) => Number.isInteger(qty) && qty > 0 && qty < 100;
+
 // Place order
 router.post('/', (req, res) => {
     console.log("🛎️ Order received:", req.body);
 
     const { name, email, product, quantity } = req.body;
-    if (!name || !email || !product || !quantity) {
+    if (!name || !email || !product || quantity == null) {
         return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    if (!validateName(name)) {
+        return res.status(400).json({ message: 'Invalid name: Only letters and spaces allowed.' });
+    }
+
+    if (!validateEmail(email)) {
+        return res.status(400).json({ message: 'Invalid email format.' });
+    }
+
+    if (!validateQuantity(quantity)) {
+        return res.status(400).json({ message: 'Invalid quantity: Must be between 1 and 99.' });
     }
 
     const query = 'INSERT INTO orders (name, email, product, quantity) VALUES (?, ?, ?, ?)';
@@ -50,6 +67,5 @@ router.get('/report', (req, res) => {
         res.json(results);
     });
 });
-
 
 module.exports = router;
