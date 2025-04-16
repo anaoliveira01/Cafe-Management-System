@@ -20,8 +20,9 @@ How to run:
    npm -v
    mysql --version
    ```
+3. Open server/db.js and change the root password from '0000' to your root password
    
-3. Start MySQL and create a local database called cafe_db
+4. Start MySQL and create a local database called cafe_db
    ```
    brew services start mysql
    mysql -u root -p
@@ -35,18 +36,22 @@ How to run:
    exit;
    ```
    
-4. On your terminal or a program such as VSCode, change the directory into client/src and execute node index.js
+5. On your terminal or a program such as VSCode, change the directory into server and execute node index.js
    ```
-   cd cafe-management-system/client/src
+   cd cafe-management-system/server
    node index.js
    ```
+6. Install Cors if necesary
+   ```
+   npm install cors
+   ```
 
-5. On a new terminal window, change the directory to client again
+7. On a new terminal window, change the directory to client
    ```
    cd cafe-management-system/client
    ```
    
-6. Install npm in the client directory and start the application
+8. Install npm in the client directory and start the application
    ```
    npm install
    npm start
